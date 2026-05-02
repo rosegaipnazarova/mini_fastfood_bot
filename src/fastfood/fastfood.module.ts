@@ -1,16 +1,17 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { FastFoodService } from './fastfood.service';
-import { FastFoodUpdate } from './fastfood.update';
-import { Product, ProductSchema } from './entities/fastfood.entity';
-
-export type ProductDocument = Product & Document;
+import { FastfoodService } from './fastfood.service';
+import { FastfoodController } from './fastfood.controller';
+import { Fastfood, FastfoodSchema, BotUser, BotUserSchema } from './entities/fastfood.entity';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }])
+    MongooseModule.forFeature([
+      { name: Fastfood.name, schema: FastfoodSchema },
+      { name: BotUser.name, schema: BotUserSchema },
+    ]),
   ],
-  providers: [FastFoodService, FastFoodUpdate],
-  exports: [FastFoodService]
+  controllers: [FastfoodController],
+  providers: [FastfoodService],
 })
-export class FastFoodModule {}
+export class FastfoodModule {}

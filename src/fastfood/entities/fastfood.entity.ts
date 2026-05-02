@@ -1,22 +1,44 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
+
+export type FastfoodDocument = HydratedDocument<Fastfood>;
 
 @Schema()
-export class Product extends Document {
-  @Prop({ required: true })
+export class Fastfood {
+  @Prop()
   name!: string;
 
-  @Prop({ required: true })
+  @Prop()
   price!: number;
 
   @Prop()
-  image!: string; // Rasm URL yoki file_id
+  category!: string; 
 
   @Prop()
-  description!: string; // Tarkibi
+  description!: string; 
 
-  @Prop({ required: true, enum: ['food', 'drink', 'dessert'] })
-  category!: string;
+  @Prop()
+  image!: string; 
 }
 
-export const ProductSchema = SchemaFactory.createForClass(Product);
+export const FastfoodSchema = SchemaFactory.createForClass(Fastfood);
+
+@Schema()
+export class BotUser {
+  @Prop()
+  chatId!: number;
+
+  @Prop()
+  name!: string;
+
+  @Prop()
+  phone!: string;
+
+  @Prop({ type: Object })
+  location!: { latitude: number; longitude: number };
+
+  @Prop({ default: 'START' })
+  lastState!: string;
+}
+
+export const BotUserSchema = SchemaFactory.createForClass(BotUser);
